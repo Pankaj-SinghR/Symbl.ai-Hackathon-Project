@@ -39,8 +39,37 @@ def generate_conversation_object(file_type, location):
 			return conv_object
 		except Exception as e:
 			print(e)
-			print("Something went wrong please check the file and try again")
+			print("Something went wrong please enter the correct file and try again")
 			exit()
+
+
+def generate_output_file(conv_obj, output_filename):
+	
+	err_hour = int(conv_obj.get_messages().messages[0].start_time.hour) #these values are not part of file
+	err_minute = int(conv_obj.get_messages().messages[0].start_time.minute) 
+	err_second = int(conv_obj.get_messages().messages[0].start_time.second) 
+	
+	print(err_hour,err_minute,err_second)
+	
+	with open(output_filename, 'w') as f:
+		sequence_number = 1
+		for data in conv_obj.get_messages().messages:
+			f.write(f'{str(sequence_number)}\n')
+			s_hour = int(data.start_time.hour)
+			e_hour = int(data.end_time.hour)
+			
+			s_minute = int(data.start_time.minute)
+			e_minute = int(data.end_time.minute)
+			
+			s_second = int(data.start_time.second)
+			e_second = int(data.end_time.second)
+			
+			f.write(f'{s_hour-err_hour}:{s_minute-err_minute}:{s_second-err_second} --> {e_hour-err_hour}:{e_minute-err_minute}:{e_second-err_second}\n')
+			print(data.text)
+			f.write(f'{data.text}\n\n')
+			sequence_number += 1
+			
+		print("Take Complete..Subtitle File Is Created")
 
 def main():	
 	file_type = args.filetype
@@ -49,19 +78,14 @@ def main():
 	print(file_type,location,output_filename)
 	
 	filetype_list = ['audio','video','Audio','Video']
+
 	if(file_type in filetype_list):
-		conversation_object = generate_conversation_object(file_type.capitalize(), location)
+		conversation_object = generate_conversation_object(file_type.capitalize(), location) #function call to create a conversation object
 	else:
 		print("filetype is not audio/video")
 		exit()
 		
-	print(conversation_object.get_messages().messages[0].text)
-	print(conversation_object.get_messages().messages[0].start_time.time())
-	print(conversation_object.get_messages().messages[0].end_time.time())
-			 
-	
-	
-		
+	generate_output_file(conversation_object, output_filename) #function call to generate subtitle file	
 
 
 if __name__=="__main__":
