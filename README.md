@@ -65,4 +65,4 @@ ls
 > subtitle.srt
 
 #### Now you can add subtitle.srt file to the video :-)
-#### [2 min explanation video](https://youtu.be/2VFDGxSMZtI)
+
