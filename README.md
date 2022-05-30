@@ -19,7 +19,7 @@ app_secret='YOUR_API_KEY'
 ```
 ##### Clone this github repo
 ```
-git clone https://github.com/PankajSingh1010/Symbl.ai-Hackathon-Project.git
+git clone https://github.com/Pankaj-SinghR/Symbl.ai-Hackathon-Project.git
 ```
 ##### Add symbl.conf file in Symbl.ai-Hackathon-Project directory
 ```
